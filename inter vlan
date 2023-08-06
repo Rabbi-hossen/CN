@@ -1,0 +1,84 @@
+//----------------------switch--------------------------
+Switch>enable
+Switch#confiqure terminal
+                 ^
+% Invalid input detected at '^' marker.
+	
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#exit
+Switch(config)#vlan 20
+Switch(config-vlan)#exit
+Switch(config)#interface fastethernet 0/1
+Switch(config-if)#swithchport access vlan 10
+                      ^
+% Invalid input detected at '^' marker.
+	
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#switchport mode access
+Switch(config-if)#exit
+Switch(config)#interface fastethernet 0/2
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#switchport mode access
+Switch(config-if)#exit
+Switch(config)#interface fasthethernet 0/3
+                             ^
+% Invalid input detected at '^' marker.
+	
+Switch(config)#interface fastethernet 0/3
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#end
+Switch#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Switch#show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/4, Fa0/5, Fa0/6, Fa0/7
+                                                Fa0/8, Fa0/9, Fa0/10, Fa0/11
+                                                Fa0/12, Fa0/13, Fa0/14, Fa0/15
+                                                Fa0/16, Fa0/17, Fa0/18, Fa0/19
+                                                Fa0/20, Fa0/21, Fa0/22, Fa0/23
+                                                Fa0/24, Gig0/1, Gig0/2
+10   VLAN0010                         active    Fa0/1, Fa0/3
+20   VLAN0020                         active    Fa0/2
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active    
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#interface gigabitethernet 0/1
+Switch(config-if)#no shutdown
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#exit
+Switch(config)#exit
+Switch#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Switch#show run
+Building configuration...
+
+Current configuration : 1232 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport access vlan 10
+ switchport mode access
+ --More-- 
